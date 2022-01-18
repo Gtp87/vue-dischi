@@ -13,7 +13,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row row-cols-5">
+		<div v-if="selectedCards" class="row row-cols-5">
             <Card 
             v-for="(card, index) in selectedCards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
 			<!-- <div class="col">
@@ -97,6 +97,9 @@
 				</div>
 			</div> -->
 		</div>
+		<div v-else class="loading">
+				<h1>Loading...</h1>
+			</div>
 	</div>
 </main>
 </template>
@@ -117,7 +120,9 @@ export default {
 		}
 	},
 	mounted() {
-		this.getCards();
+		setTimeout(() => {
+			this.getCards();
+		}, 2000);
 	},
 	methods: {
 		getCards () {
@@ -160,6 +165,11 @@ label {
 	margin: auto;
 	.col {
 		padding: 0.5em 1em;
+	}
+	.loading {
+		color: white;
+		display: flex;
+		justify-content: center;
 	}
 }
 </style>
