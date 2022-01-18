@@ -13,7 +13,7 @@ export default {
     name: "Search",
     data () {
         return {
-            genreSelect: "All"
+            genreSelect: "all"
         }
     }
 }
