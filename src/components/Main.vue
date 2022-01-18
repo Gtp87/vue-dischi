@@ -1,10 +1,10 @@
 <template>
-<main>
-     <div class="container-60 py-5">
+<main class="pb-6">
+     <div class="container-60 py-4">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-4 offset-8">
 				<label class="p-2" for="genre">Scegli un genere:</label>
-				<select name="genre" id="genre">
+				<select v-model="genreSelect" name="genre" id="genre" class="form-select" @change="cardsFilter">
 				<option value="all">All</option>
 				<option value="rock">Rock</option>
 				<option value="pop">Pop</option>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="row row-cols-5">
             <Card 
-            v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
+            v-for="(card, index) in selectedCards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
 			<!-- <div class="col">
 				<div class="spotify-card">
 					<img class="p-3" src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg" alt="">
@@ -111,21 +111,36 @@ export default {
 	},
 	data() {
 		return {
-			cards: null,
+			selectedCards: null,
+			genreSelect: 'all',
+			firstArray: null,
 		}
 	},
 	mounted() {
 		this.getCards();
 	},
 	methods: {
-		getCards() {
+		getCards () {
 			axios.get('https://flynn.boolean.careers/exercises/api/array/music')
 			.then((result) => {
-				this.cards = result.data.response;
+				this.firstArray = result.data.response;
+				this.selectedCards = result.data.response;
+				
 			})
 			.catch((error) => {
 				console.log(error);
 			})
+		},
+
+	cardsFilter() {
+			//di partenza si vedono tutti gli album
+			this.selectedCards = this.firstArray;
+			//selezione genere
+			if (this.genreSelect !== 'all') {
+				this.selectedCards = this.selectedCards.filter(album => album.genre.toLowerCase()  === this.genreSelect);
+			} else {
+				return this.selectedCards;
+			}
 		}
 	}
 }
@@ -135,6 +150,7 @@ export default {
 <style lang="scss">
 main {
     background-color: #1e2d3b;
+	height:100vh;
 }
 label {
 	color: white;

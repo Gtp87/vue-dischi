@@ -1,6 +1,6 @@
 <template>
 	<div class="container-fluid">
-		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png" alt="">
+		<img class="py-2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png" alt="">
 	</div>
 </template>
 
@@ -13,8 +13,9 @@ export default {
 <style lang="scss">
 .container-fluid {
 	background-color: #2e3a46;
+	height: 55px;
 	img {
-		height: 55px;
+		height: 100%;
 	}
 }
 </style>
