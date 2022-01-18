@@ -1,6 +1,18 @@
 <template>
 <main>
      <div class="container-60 py-5">
+		<div class="row">
+			<div class="col-12">
+				<label class="p-2" for="genre">Scegli un genere:</label>
+				<select name="genre" id="genre">
+				<option value="all">All</option>
+				<option value="rock">Rock</option>
+				<option value="pop">Pop</option>
+				<option value="jazz">Jazz</option>
+				<option value="metal">Metal</option>
+				</select>
+			</div>
+		</div>
 		<div class="row row-cols-5">
             <Card 
             v-for="(card, index) in cards" :key="index" :image="card.poster" :name="card.title" :title="card.title" :artist="card.author" :year="card.year"/>
@@ -123,6 +135,9 @@ export default {
 <style lang="scss">
 main {
     background-color: #1e2d3b;
+}
+label {
+	color: white;
 }
 .container-60 {
 	width: 60%;
