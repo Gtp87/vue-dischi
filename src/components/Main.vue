@@ -1,16 +1,17 @@
 <template>
 <main class="pb-6">
-     <div class="container-60 py-4">
+    <div class="container-60 py-4">
 		<div class="row">
 			<div class="col-4 offset-8">
 				<label class="p-2" for="genre">Scegli un genere:</label>
-				<select v-model="genreSelect" name="genre" id="genre" class="form-select" @change="cardsFilter">
+				<Search @doSelect="cardsFilter($event)"/>
+				<!-- <select v-model="genreSelect" name="genre" id="genre" class="form-select" @change="cardsFilter">
 				<option value="all">All</option>
 				<option value="rock">Rock</option>
 				<option value="pop">Pop</option>
 				<option value="jazz">Jazz</option>
 				<option value="metal">Metal</option>
-				</select>
+				</select> --> 
 			</div>
 		</div>
 		<div v-if="selectedCards" class="row row-cols-5">
@@ -107,10 +108,12 @@
 <script>
 import axios from 'axios';
 import Card from './Card.vue';
+import Search from './Search.vue'
 export default {
   name: "Main",
 	components: {
 		Card,
+		Search,
 	},
 	data() {
 		return {
@@ -137,12 +140,12 @@ export default {
 			})
 		},
 
-	cardsFilter() {
+	cardsFilter(text) {
 			//di partenza si vedono tutti gli album
 			this.selectedCards = this.firstArray;
 			//selezione genere
-			if (this.genreSelect !== 'all') {
-				this.selectedCards = this.selectedCards.filter(album => album.genre.toLowerCase()  === this.genreSelect);
+			if (text !== 'all') {
+				this.selectedCards = this.selectedCards.filter(album => album.genre.toLowerCase()  === text);
 			} else {
 				return this.selectedCards;
 			}
